@@ -96,26 +96,23 @@ public class RequestController {
 	
 	@RequestMapping(value="/appointmentlst",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public Map<String,List<Map<String,String>>> userAppmtsFunction(@ModelAttribute("profileID")String pofileID )
+	public List<Map<String,String>> userAppmtsFunction(@ModelAttribute("start")Integer start,@ModelAttribute("end")Integer end )
 	{
-
 		Map<String,String> mockprofile=new HashMap<>();
-			mockprofile.put("id", pofileID);
+		List<Map<String,String>> l=new ArrayList<>();
+		for(int i=start;i<end;i++)
+		{
+			System.out.println("----"+i);
+			mockprofile.put("id", String.valueOf(i));
 			mockprofile.put("name","Vegnesh Murti");
 			mockprofile.put("age","24");
-			mockprofile.put("lastAppointment", "23-05-2016");
 			mockprofile.put("imgurl","https://placehold.it/32x32");
-		Map<String,String> mockfortest=new HashMap<>();
-			mockfortest.put("testName", "MRI");
-			mockfortest.put("testDate", "24-04-2016");
-			mockfortest.put("testResult", "Positive");
-			mockfortest.put("testUri", "http://placehold.it/320x320");//pdf
-		List<Map<String,String>> c=new ArrayList<>();
-		c.add(mockfortest);
-		c.add(mockprofile);
-		Map<String,List<Map<String,String>>> result=new  HashMap<>();
-		result.put("appointmentList",c);
-		return result;
+			mockprofile.put("profileID","04f8996da763b7a969b1028ee3007569eaf3a635486==");
+			l.add(mockprofile);
+		}
+		
+		System.out.println(l);
+		return l;
 	}
 	
 	@RequestMapping(value="*",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
