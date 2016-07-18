@@ -34,9 +34,9 @@ public class RequestController {
 	{
 		new LoginDaoImplement(source).isValidUser(_login);
 		Map<String,String> mockprofile=new HashMap<>();
-		if(_login.getRole().equalsIgnoreCase("admin"))
+		if(_login.getRole()!=null && _login.getRole().equalsIgnoreCase("admin"))
 			mockprofile.put("role", "admin");
-		else if(_login.getRole().equalsIgnoreCase("user"))
+		else if(_login.getRole()!=null && _login.getRole().equalsIgnoreCase("user"))
 			mockprofile.put("role", "user");
 		else
 		{
@@ -55,22 +55,25 @@ public class RequestController {
 	{
 
 		Map<String,String> mockprofile=new HashMap<>();
+		List<Map<String,String>> l=new ArrayList<>();
 		for(int i=1;i<21;i++)
 		{
+			System.out.println("----"+i);
 			mockprofile.put("id", String.valueOf(i));
 			mockprofile.put("name","Vegnesh Murti");
 			mockprofile.put("age","24");
 			mockprofile.put("imgurl","https://placehold.it/32x32");
 			mockprofile.put("profileID","04f8996da763b7a969b1028ee3007569eaf3a635486==");
+			l.add(mockprofile);
 		}
-		List<Map<String,String>> l=new ArrayList<>();
-		l.add(mockprofile);
+		
+		System.out.println(l);
 		return l;
 	}
 	
 	@RequestMapping(value="/userDetail",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public Map<String,List<Map<String,String>>> userDetailFunction(@ModelAttribute("profileID")String pofileID )
+	public Map<String,Map<String,String>> userDetailFunction(@ModelAttribute("profileID")String pofileID )
 	{
 
 		Map<String,String> mockprofile=new HashMap<>();
@@ -85,11 +88,9 @@ public class RequestController {
 		mockfortest.put("testResult", "Positive");
 		mockfortest.put("testUri", "http://placehold.it/320x320");//pdf
 		mockfortest.put("medicine","X..Y..Z");
-	List<Map<String,String>> c=new ArrayList<>();
-	c.add(mockfortest);
-	c.add(mockprofile);
-	Map<String,List<Map<String,String>>> result=new  HashMap<>();
-	result.put("userDetail",c);
+	Map<String,Map<String,String>> result=new HashMap<>();
+	result.put("pofileDetail",mockprofile);
+	result.put("testDetail",mockfortest);
 	return result;
 	}
 	
@@ -131,6 +132,26 @@ public class RequestController {
 	@RequestMapping(value="*/*",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public String redirectFunction()
+	{
+		List<String> s=new ArrayList<>();
+		s.add("A");s.add("A");s.add("A");s.add("A");s.add("A");s.add("A");
+		return "Welcome user";
+	}
+	
+	@RequestMapping(value="*",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Map<Integer,String> homePOSTFunction()
+	{
+		JSONObject result = new JSONObject();result.put("name", "Dade");
+		result.put("age", 23);
+		result.put("married", false);
+		Map<Integer,String> d=new HashMap<>();
+		d.put(1,"Hello world");
+        return d;
+	}
+	@RequestMapping(value="*/*",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public String redirectPOSTFunction()
 	{
 		List<String> s=new ArrayList<>();
 		s.add("A");s.add("A");s.add("A");s.add("A");s.add("A");s.add("A");
