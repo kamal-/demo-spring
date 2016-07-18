@@ -31,7 +31,7 @@ public class LoginDaoImplement extends JdbcDaoSupport implements LoginDao{
 		 jdbcTemplate = new JdbcTemplate(source);
 	}
 	@Override
-	public boolean isValidUser(LoginBean lbean) {
+	public LoginBean isValidUser(LoginBean lbean) {
 		
 		boolean i=false;
 		System.out.println(new String(lbean.getPassword())+"----------------"+lbean.getUsername());
@@ -46,11 +46,12 @@ public class LoginDaoImplement extends JdbcDaoSupport implements LoginDao{
 	            	System.out.println("---------Working------------");
 	            	bean.setUsername(rs.getString("username"));
 	            	bean.setPassword(rs.getString("password").toCharArray());
+	            	bean.setProfileID(rs.getString("username"));
 	            }
 	            return bean;
 	            }
 		});
-		return i;
+		return lbean;
 	}
 
 }

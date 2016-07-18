@@ -30,19 +30,93 @@ public class RequestController {
 	DataSource source=null;
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<ArrayList> loginFunction(@ModelAttribute("login")LoginBean _login )
+	public Map<String,String> loginFunction(@ModelAttribute("login")LoginBean _login )
 	{
 		new LoginDaoImplement(source).isValidUser(_login);
-		JSONArray userArray = new JSONArray();
-		List<ArrayList> s=new ArrayList<>();
-		ArrayList s1=new ArrayList();
-		Map<Integer,String> map=new HashMap<>();
-		map.put(1, null);map.put(1, "null");
-		map.put(1, "c");
-		s1.add(map);s1.add("A");s1.add("A");s1.add("A");s1.add("A");
-		s.add(s1);
-		return s;
+		Map<String,String> mockprofile=new HashMap<>();
+		if(_login.getRole().equalsIgnoreCase("admin"))
+			mockprofile.put("role", "admin");
+		else if(_login.getRole().equalsIgnoreCase("user"))
+			mockprofile.put("role", "user");
+		else
+		{
+			mockprofile.put("role", "unauthorized");
+			return mockprofile;
+		}
+		mockprofile.put("profileID", "04f8996da763b7a969b1028ee3007569eaf3a635486");
+		mockprofile.put("token", "04f8996da763b7a969b1028ee3007569eaf3a635486--");
+		mockprofile.put("referesher", "04f8996da763b7a969b1028ee3007569eaf3a635486==");
+		return mockprofile;
 	}
+	
+	@RequestMapping(value="/patientFeed",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<Map<String,String>> userFunction(@ModelAttribute("pointer")String point )
+	{
+
+		Map<String,String> mockprofile=new HashMap<>();
+		for(int i=1;i<21;i++)
+		{
+			mockprofile.put("id", String.valueOf(i));
+			mockprofile.put("name","Vegnesh Murti");
+			mockprofile.put("age","24");
+			mockprofile.put("imgurl","https://placehold.it/32x32");
+			mockprofile.put("profileID","04f8996da763b7a969b1028ee3007569eaf3a635486==");
+		}
+		List<Map<String,String>> l=new ArrayList<>();
+		l.add(mockprofile);
+		return l;
+	}
+	
+	@RequestMapping(value="/userDetail",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Map<String,List<Map<String,String>>> userDetailFunction(@ModelAttribute("profileID")String pofileID )
+	{
+
+		Map<String,String> mockprofile=new HashMap<>();
+		mockprofile.put("id", pofileID);
+		mockprofile.put("name","Vegnesh Murti");
+		mockprofile.put("age","24");
+		mockprofile.put("lastAppointment", "23-05-2016");
+		mockprofile.put("imgurl","https://placehold.it/32x32");
+	Map<String,String> mockfortest=new HashMap<>();
+		mockfortest.put("testName", "MRI");
+		mockfortest.put("testDate", "24-04-2016");
+		mockfortest.put("testResult", "Positive");
+		mockfortest.put("testUri", "http://placehold.it/320x320");//pdf
+		mockfortest.put("medicine","X..Y..Z");
+	List<Map<String,String>> c=new ArrayList<>();
+	c.add(mockfortest);
+	c.add(mockprofile);
+	Map<String,List<Map<String,String>>> result=new  HashMap<>();
+	result.put("userDetail",c);
+	return result;
+	}
+	
+	@RequestMapping(value="/appointmentlst",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Map<String,List<Map<String,String>>> userAppmtsFunction(@ModelAttribute("profileID")String pofileID )
+	{
+
+		Map<String,String> mockprofile=new HashMap<>();
+			mockprofile.put("id", pofileID);
+			mockprofile.put("name","Vegnesh Murti");
+			mockprofile.put("age","24");
+			mockprofile.put("lastAppointment", "23-05-2016");
+			mockprofile.put("imgurl","https://placehold.it/32x32");
+		Map<String,String> mockfortest=new HashMap<>();
+			mockfortest.put("testName", "MRI");
+			mockfortest.put("testDate", "24-04-2016");
+			mockfortest.put("testResult", "Positive");
+			mockfortest.put("testUri", "http://placehold.it/320x320");//pdf
+		List<Map<String,String>> c=new ArrayList<>();
+		c.add(mockfortest);
+		c.add(mockprofile);
+		Map<String,List<Map<String,String>>> result=new  HashMap<>();
+		result.put("appointmentList",c);
+		return result;
+	}
+	
 	@RequestMapping(value="*",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Map<Integer,String> homeFunction()

@@ -4,5 +4,5 @@ import com.j.beans.LoginBean;
 
 public interface LoginDao {
 
-	public boolean isValidUser(LoginBean lbean);
+	public LoginBean isValidUser(LoginBean lbean);
 }
