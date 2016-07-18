@@ -7,8 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.sql.DataSource;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,14 +20,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.j.beans.LoginBean;
+import com.j.dao.LoginDao;
+import com.j.daoImplement.LoginDaoImplement;
 
 @RestController
 public class RequestController {
 
-	@RequestMapping(value="/login",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@Autowired
+	DataSource source=null;
+	@RequestMapping(value="/login",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<ArrayList> loginFunction(@ModelAttribute("login")LoginBean _login )
 	{
+		new LoginDaoImplement(source).isValidUser(_login);
 		JSONArray userArray = new JSONArray();
 		List<ArrayList> s=new ArrayList<>();
 		ArrayList s1=new ArrayList();
