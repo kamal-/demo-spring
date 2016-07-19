@@ -22,12 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.j.beans.LoginBean;
 import com.j.dao.LoginDao;
 import com.j.daoImplement.LoginDaoImplement;
+import com.j.daoImplement.UserFeedBeanImplement;
 
 @RestController
 public class RequestController {
 
 	@Autowired
-	DataSource source=null;
+	private DataSource source=null;
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Map<String,String> loginFunction(@ModelAttribute("login")LoginBean _login )
@@ -53,12 +54,11 @@ public class RequestController {
 	@ResponseBody
 	public List<Map<String,String>> userFunction(@ModelAttribute("pointer")String point )
 	{
-
+		new UserFeedBeanImplement(source).getActiveFeed();
 		Map<String,String> mockprofile=new HashMap<>();
 		List<Map<String,String>> l=new ArrayList<>();
 		for(int i=1;i<21;i++)
 		{
-			System.out.println("----"+i);
 			mockprofile.put("id", String.valueOf(i));
 			mockprofile.put("name","Vegnesh Murti");
 			mockprofile.put("age","24");
@@ -67,7 +67,6 @@ public class RequestController {
 			l.add(mockprofile);
 		}
 		
-		System.out.println(l);
 		return l;
 	}
 	
@@ -115,7 +114,7 @@ public class RequestController {
 		return l;
 	}
 	
-	@RequestMapping(value="*",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="*",method={RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.TRACE,RequestMethod.DELETE,RequestMethod.HEAD,RequestMethod.OPTIONS,RequestMethod.PATCH},produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Map<Integer,String> homeFunction()
 	{
@@ -126,7 +125,7 @@ public class RequestController {
 		d.put(1,"Hello world");
         return d;
 	}
-	@RequestMapping(value="*/*",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="*/*",method={RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.TRACE,RequestMethod.DELETE,RequestMethod.HEAD,RequestMethod.OPTIONS,RequestMethod.PATCH},produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public String redirectFunction()
 	{
@@ -135,23 +134,5 @@ public class RequestController {
 		return "Welcome user";
 	}
 	
-	@RequestMapping(value="*",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public Map<Integer,String> homePOSTFunction()
-	{
-		JSONObject result = new JSONObject();result.put("name", "Dade");
-		result.put("age", 23);
-		result.put("married", false);
-		Map<Integer,String> d=new HashMap<>();
-		d.put(1,"Hello world");
-        return d;
-	}
-	@RequestMapping(value="*/*",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public String redirectPOSTFunction()
-	{
-		List<String> s=new ArrayList<>();
-		s.add("A");s.add("A");s.add("A");s.add("A");s.add("A");s.add("A");
-		return "Welcome user";
-	}
+	
 }
