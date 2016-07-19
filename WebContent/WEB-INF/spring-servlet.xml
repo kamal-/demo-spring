@@ -24,4 +24,8 @@
 	class="com.j.daoImplement.LoginDaoImplement">
 	<property name="dataSource" ref="dataSource" />
 	</bean>
+	<bean id="UserFeedDao"
+	class="com.j.daoImplement.UserFeedBeanImplement">
+	<property name="dataSource" ref="dataSource" />
+	</bean>
 </beans>

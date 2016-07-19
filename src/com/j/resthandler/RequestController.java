@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,7 +24,7 @@ import com.j.beans.LoginBean;
 import com.j.dao.LoginDao;
 import com.j.daoImplement.LoginDaoImplement;
 import com.j.daoImplement.UserFeedBeanImplement;
-
+@CrossOrigin(origins = "*",maxAge = 3600)
 @RestController
 public class RequestController {
 
@@ -52,12 +53,12 @@ public class RequestController {
 	
 	@RequestMapping(value="/patientFeed",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<Map<String,String>> userFunction(@ModelAttribute("pointer")String point )
+	public List<Map<String,Object>> userFunction(@ModelAttribute("start")String startpoint,@ModelAttribute("end")String endpoint )
 	{
-		new UserFeedBeanImplement(source).getActiveFeed();
+		List<Map<String,Object>> l=new UserFeedBeanImplement(source).getActiveFeed();
 		Map<String,String> mockprofile=new HashMap<>();
-		List<Map<String,String>> l=new ArrayList<>();
-		for(int i=1;i<21;i++)
+		//List<Map<String,String>> l=new ArrayList<>();
+		/*for(int i=1;i<21;i++)
 		{
 			mockprofile.put("id", String.valueOf(i));
 			mockprofile.put("name","Vegnesh Murti");
@@ -65,7 +66,7 @@ public class RequestController {
 			mockprofile.put("imgurl","https://placehold.it/32x32");
 			mockprofile.put("profileID","04f8996da763b7a969b1028ee3007569eaf3a635486==");
 			l.add(mockprofile);
-		}
+		}*/
 		
 		return l;
 	}
@@ -93,13 +94,13 @@ public class RequestController {
 	return result;
 	}
 	
-	@RequestMapping(value="/appointmentlst",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/appointmenthistory",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<Map<String,String>> userAppmtsFunction(@ModelAttribute("start")Integer start,@ModelAttribute("end")Integer end )
+	public List<Map<String,String>> userAppmtsFunction()
 	{
 		Map<String,String> mockprofile=new HashMap<>();
 		List<Map<String,String>> l=new ArrayList<>();
-		for(int i=start;i<end;i++)
+		for(int i=1;i<20;i++)
 		{
 			System.out.println("----"+i);
 			mockprofile.put("id", String.valueOf(i));

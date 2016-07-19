@@ -33,7 +33,7 @@ private JdbcTemplate jdbcTemplate=null;
 	public List<Map<String, Object>> getActiveFeed() {
 		Map<Integer,UserFeedBean> returnedUsers=new HashMap<>();
 		List<Map<String, Object>> m=new ArrayList<>();
-		String query="select name,age,imgUrl from web_j_db.activefeed order by id desc limit 20";
+		String query="select name,age,imgUrl,profileID from web_j_db.activefeed order by id desc limit 20";
 		 m=jdbcTemplate.queryForList(query);
 		 
 		return m;
