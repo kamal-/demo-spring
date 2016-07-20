@@ -29,7 +29,7 @@ import com.j.daoImplement.UserFeedBeanImplement;
 public class RequestController {
 
 	@Autowired
-	private static DataSource source=null;
+	private DataSource source=null;
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Map<String,String> loginFunction(@ModelAttribute("login")LoginBean _login )

@@ -18,7 +18,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306" />
 		<property name="username" value="root" />
-		<property name="password" value="passw" />
+		<property name="password" value="daf" />
 	</bean>
 	<bean id="LoginDao"
 	class="com.j.daoImplement.LoginDaoImplement">
@@ -28,4 +28,18 @@
 	class="com.j.daoImplement.UserFeedBeanImplement">
 	<property name="dataSource" ref="dataSource" />
 	</bean>
+	<bean id="UserDetailDao"
+	class="com.j.daoImplement.UserDetailDaoImplement">
+	<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="UserRegistrationDao"
+	class="com.j.daoImplement.UserRegistrationDaoImplement">
+	<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="VisitRecordsDao"
+	class="com.j.daoImplement.VisitRecordsDaoImplement">
+	<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	
 </beans>
