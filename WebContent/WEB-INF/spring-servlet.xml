@@ -18,7 +18,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306" />
 		<property name="username" value="root" />
-		<property name="password" value="password" />
+		<property name="password" value="passw" />
 	</bean>
 	<bean id="LoginDao"
 	class="com.j.daoImplement.LoginDaoImplement">
