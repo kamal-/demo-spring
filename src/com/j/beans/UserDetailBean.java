@@ -9,13 +9,75 @@ public class UserDetailBean {
 	private String imgUrl;
 	private String name;
 	private String surName;
-	private String duration;
-	private String rating;
 	private String profileID;
+	private String state;
+	private String city;
+	private String country;
+	private Date attendeddate;
+	private int postalcode;
+	private int countrycode;
+	private int statecode;
+	private int monumber;
 	private String address;
-	private int age;
-	private int currentregisteredID;
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	public Date getAttendeddate() {
+		return attendeddate;
+	}
+	public void setAttendeddate(Date attendeddate) {
+		this.attendeddate = attendeddate;
+	}
+	public int getPostalcode() {
+		return postalcode;
+	}
+	public void setPostalcode(int postalcode) {
+		this.postalcode = postalcode;
+	}
+	public int getCountrycode() {
+		return countrycode;
+	}
+	public void setCountrycode(int countrycode) {
+		this.countrycode = countrycode;
+	}
+	public int getStatecode() {
+		return statecode;
+	}
+	public void setStatecode(int statecode) {
+		this.statecode = statecode;
+	}
+	public int getMonumber() {
+		return monumber;
+	}
+	public void setMonumber(int monumber) {
+		this.monumber = monumber;
+	}
 	public String getImgUrl() {
+		return imgUrl;
+	}
+	private int age;
+	public String getImgUrl(String string) {
 		return imgUrl;
 	}
 	public void setImgUrl(String imgUrl) {
@@ -33,42 +95,21 @@ public class UserDetailBean {
 	public void setSurName(String surName) {
 		this.surName = surName;
 	}
-	public String getDuration() {
-		return duration;
-	}
-	public void setDuration(String duration) {
-		this.duration = duration;
-	}
-	public String getRating() {
-		return rating;
-	}
-	public void setRating(String rating) {
-		this.rating = rating;
-	}
+	
 	public String getProfileID() {
 		return profileID;
 	}
 	public void setProfileID(String profileID) {
 		this.profileID = profileID;
 	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
+	
 	public int getAge() {
 		return age;
 	}
 	public void setAge(int age) {
 		this.age = age;
 	}
-	public int getCurrentregisteredID() {
-		return currentregisteredID;
-	}
-	public void setCurrentregisteredID(int currentregisteredID) {
-		this.currentregisteredID = currentregisteredID;
-	}
+	
 	public String getFuture1() {
 		return future1;
 	}

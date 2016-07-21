@@ -31,7 +31,7 @@ private JdbcTemplate jdbcTemplate=null;
 	@Override
 	public List<Map<String, String>> getUserDetail(final String profileID) {
 
-		String query="select * from web_j_db.account where username='?'";
+		String query="select * from web_j_db.userprofile where profileid='?'";
 		UserDetailBean returnedUser=(UserDetailBean)jdbcTemplate.execute(query,new PreparedStatementCallback<UserDetailBean>(){  
 		    @Override  
 		    public UserDetailBean doInPreparedStatement(PreparedStatement ps)  
@@ -43,7 +43,13 @@ private JdbcTemplate jdbcTemplate=null;
 					{
 						ubean.setAddress(r.getString("address"));
 						ubean.setAge(r.getInt("age"));
-						ubean.setCurrentregisteredID(r.getInt("currentregisteredID"));
+						ubean.setImgUrl(r.getString("imgUrl"));
+						ubean.setName(r.getString("firstname"));
+						ubean.setSurName(r.getString("lastname"));
+						ubean.setProfileID(profileID);
+						ubean.setLastVisit(r.getDate("lvisitdate"));
+						ubean.setAddress(r.getString("town")+","+r.getString("state")+","+r.getString("country"));
+						ubean.setMonumber(r.getInt("msisdn"));
 						//ubean.setDuration(r.getInt(""));
 					}
 					return ubean;

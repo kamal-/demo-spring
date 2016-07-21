@@ -56,17 +56,6 @@ public class RequestController {
 	public List<Map<String,Object>> userFunction(@ModelAttribute("start")String startpoint,@ModelAttribute("end")String endpoint )
 	{
 		List<Map<String,Object>> l=new UserFeedBeanImplement(source).getActiveFeed();
-		Map<String,String> mockprofile=new HashMap<>();
-		//List<Map<String,String>> l=new ArrayList<>();
-		/*for(int i=1;i<21;i++)
-		{
-			mockprofile.put("id", String.valueOf(i));
-			mockprofile.put("name","Vegnesh Murti");
-			mockprofile.put("age","24");
-			mockprofile.put("imgurl","https://placehold.it/32x32");
-			mockprofile.put("profileID","04f8996da763b7a969b1028ee3007569eaf3a635486==");
-			l.add(mockprofile);
-		}*/
 		
 		return l;
 	}
