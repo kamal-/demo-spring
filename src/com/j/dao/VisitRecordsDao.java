@@ -5,5 +5,5 @@ import java.util.Map;
 
 public interface VisitRecordsDao {
 
-	public List<Map<String,String>> getRecords();
+	public List<Map<String,String>> getRecords(String profileID);
 }

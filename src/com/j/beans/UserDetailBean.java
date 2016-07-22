@@ -18,6 +18,20 @@ public class UserDetailBean {
 	private int countrycode;
 	private int statecode;
 	private int monumber;
+	private Date nextvisitDate;
+	private String status;
+	public Date getNextvisitDate() {
+		return nextvisitDate;
+	}
+	public void setNextvisitDate(Date nextvisitDate) {
+		this.nextvisitDate = nextvisitDate;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	private String address;
 	public String getAddress() {
 		return address;
@@ -122,13 +136,13 @@ public class UserDetailBean {
 	public void setLastVisit(Date lastVisit) {
 		this.lastVisit = lastVisit;
 	}
-	public List<ArrayList<VisitRecords>> getVisitRecords() {
+	public List<ArrayList<VisitRecordsBean>> getVisitRecords() {
 		return visitRecords;
 	}
-	public void setVisitRecords(List<ArrayList<VisitRecords>> visitRecords) {
+	public void setVisitRecords(List<ArrayList<VisitRecordsBean>> visitRecords) {
 		this.visitRecords = visitRecords;
 	}
 	private String future1;
 	private Date lastVisit;
-	private List<ArrayList<VisitRecords>> visitRecords;
+	private List<ArrayList<VisitRecordsBean>> visitRecords;
 }

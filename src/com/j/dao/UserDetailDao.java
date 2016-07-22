@@ -5,5 +5,5 @@ import java.util.Map;
 
 public interface UserDetailDao {
 
-	public List<Map<String,String>> getUserDetail(String profileID);
+	public Map<String, Object> getUserDetail(String profileID);
 }

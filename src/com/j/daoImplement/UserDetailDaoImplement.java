@@ -3,6 +3,7 @@ package com.j.daoImplement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,33 +30,38 @@ private JdbcTemplate jdbcTemplate=null;
 		 jdbcTemplate = new JdbcTemplate(source);
 	}
 	@Override
-	public List<Map<String, String>> getUserDetail(final String profileID) {
+	public Map<String, Object> getUserDetail(final String profileID) {
 
-		String query="select * from web_j_db.userprofile where profileid='?'";
+		String query="select firstname,lastname,age,lvisitdate,state,city,zip,lastname,age,lvisitdate,state,city,zip"
+				+ "nextvisitdate,status from web_j_db.userprofile where profileid='?'";
+		Map<String,Object> l=new HashMap<>();
 		UserDetailBean returnedUser=(UserDetailBean)jdbcTemplate.execute(query,new PreparedStatementCallback<UserDetailBean>(){  
 		    @Override  
 		    public UserDetailBean doInPreparedStatement(PreparedStatement ps)  
 		            throws SQLException, DataAccessException { 
 						ps.setString(0, profileID);
 					ResultSet r=	ps.executeQuery();
-					UserDetailBean ubean=new UserDetailBean();ubean=null;
+					final Map<String, String> usermap=new HashMap<String, String>();
+					UserDetailBean ubean=new UserDetailBean();
 					if(r.next())
 					{
-						ubean.setAddress(r.getString("address"));
 						ubean.setAge(r.getInt("age"));
 						ubean.setImgUrl(r.getString("imgUrl"));
 						ubean.setName(r.getString("firstname"));
 						ubean.setSurName(r.getString("lastname"));
 						ubean.setProfileID(profileID);
 						ubean.setLastVisit(r.getDate("lvisitdate"));
-						ubean.setAddress(r.getString("town")+","+r.getString("state")+","+r.getString("country"));
+						ubean.setAddress(r.getString("town")+","+r.getString("state")+","+r.getString("country")+","+r.getInt("countrycode"));
 						ubean.setMonumber(r.getInt("msisdn"));
-						//ubean.setDuration(r.getInt(""));
+						ubean.setNextvisitDate(r.getDate("nextvisitdate"));
+						ubean.setStatus(r.getString("status"));
+
 					}
 					return ubean;
 			}
 			});
-		return null;
+		l.put("user", returnedUser);
+		return l;
 	}
 
 }

@@ -22,7 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.j.beans.LoginBean;
 import com.j.dao.LoginDao;
+import com.j.dao.UserDetailDao;
 import com.j.daoImplement.LoginDaoImplement;
+import com.j.daoImplement.UserDetailDaoImplement;
 import com.j.daoImplement.UserFeedBeanImplement;
 @CrossOrigin(origins = "*",maxAge = 3600)
 @RestController
@@ -62,25 +64,13 @@ public class RequestController {
 	
 	@RequestMapping(value="/userDetail",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public Map<String,Map<String,String>> userDetailFunction(@ModelAttribute("profileID")String pofileID )
+	public Map<String,Object> userDetailFunction(@ModelAttribute("profileID")String profileID )
 	{
-
-		Map<String,String> mockprofile=new HashMap<>();
-		mockprofile.put("id", pofileID);
-		mockprofile.put("name","Vegnesh Murti");
-		mockprofile.put("age","24");
-		mockprofile.put("lastAppointment", "23-05-2016");
-		mockprofile.put("imgurl","https://placehold.it/32x32");
-	Map<String,String> mockfortest=new HashMap<>();
-		mockfortest.put("testName", "MRI");
-		mockfortest.put("testDate", "24-04-2016");
-		mockfortest.put("testResult", "Positive");
-		mockfortest.put("testUri", "http://placehold.it/320x320");//pdf
-		mockfortest.put("medicine","X..Y..Z");
-	Map<String,Map<String,String>> result=new HashMap<>();
-	result.put("pofileDetail",mockprofile);
-	result.put("testDetail",mockfortest);
-	return result;
+		
+		UserDetailDao user=new UserDetailDaoImplement(source);
+		
+	
+	return user.getUserDetail(profileID);
 	}
 	
 	@RequestMapping(value="/appointmenthistory",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
