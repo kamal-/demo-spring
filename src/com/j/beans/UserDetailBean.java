@@ -17,7 +17,7 @@ public class UserDetailBean {
 	private int postalcode;
 	private int countrycode;
 	private int statecode;
-	private int monumber;
+	private long monumber;
 	private Date nextvisitDate;
 	private String status;
 	public Date getNextvisitDate() {
@@ -81,10 +81,10 @@ public class UserDetailBean {
 	public void setStatecode(int statecode) {
 		this.statecode = statecode;
 	}
-	public int getMonumber() {
+	public long getMonumber() {
 		return monumber;
 	}
-	public void setMonumber(int monumber) {
+	public void setMonumber(long monumber) {
 		this.monumber = monumber;
 	}
 	public String getImgUrl() {

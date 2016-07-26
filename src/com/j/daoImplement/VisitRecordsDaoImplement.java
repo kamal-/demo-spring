@@ -28,12 +28,12 @@ private JdbcTemplate jdbcTemplate=null;
 		 jdbcTemplate = new JdbcTemplate(source);
 	}
 	@Override
-	public List<Map<String, String>> getRecords(final String profileID) {
-		String query="select appdate,attachement,notes where profileid='?'";
+	public List<Map<String, Object>> getRecords(final String profileID) {
+		String query="select appdate,attachement,notes from luck_now.userappointdetail where profileid=?";
 		Map<String,Object> l=new HashMap<>();
 		List<Map<String,Object>> returnedUser=jdbcTemplate.queryForList(query,new Object[]{profileID});
 //		l.put("user", returnedUser);
-		return null;
+		return returnedUser;
 	}
 
 }

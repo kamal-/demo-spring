@@ -76,9 +76,9 @@ public class RequestController {
 	
 	@RequestMapping(value="/appointmenthistory",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<Map<String,String>> userAppmtsFunction(@ModelAttribute("profileID")String profileID)
+	public List<Map<String,Object>> userAppmtsFunction(@ModelAttribute("profileID")String profileID)
 	{
-		Map<String,String> mockprofile=new HashMap<>();
+		Map<String,Object> mockprofile=new HashMap<>();
 		List<Map<String,String>> l=new ArrayList<>();
 		VisitRecordsDao vRecords=new VisitRecordsDaoImplement(source);
 		return vRecords.getRecords(profileID);

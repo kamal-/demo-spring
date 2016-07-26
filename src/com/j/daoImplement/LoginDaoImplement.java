@@ -35,7 +35,7 @@ public class LoginDaoImplement extends JdbcDaoSupport implements LoginDao{
 		
 		boolean i=false;
 		System.out.println(new String(lbean.getPassword())+"----------------"+lbean.getUsername());
-		String query="select * from web_j_db.account where username='"+lbean.getUsername()+"' and password=sha2('"+new String(lbean.getPassword())+"',256)";
+		String query="select * from luck_now.account where username='"+lbean.getUsername()+"' and password=sha2('"+new String(lbean.getPassword())+"',256)";
 		LoginBean returnedUser=(LoginBean)jdbcTemplate.query(query,new ResultSetExtractor<LoginBean>() {
 			@Override
 	        public LoginBean extractData(ResultSet rs) throws SQLException,

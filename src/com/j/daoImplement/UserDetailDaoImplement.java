@@ -32,14 +32,15 @@ private JdbcTemplate jdbcTemplate=null;
 	@Override
 	public Map<String, Object> getUserDetail(final String profileID) {
 
-		String query="select firstname,lastname,age,lvisitdate,state,city,zip,lastname,age,lvisitdate,state,city,zip"
-				+ "nextvisitdate,status from web_j_db.userprofile where profileid='?'";
+		String query="select imgUrl,firstname,lastname,age,lvisitdate,state,city,zip,lastname,age,"
+				+ "lvisitdate,state,city,zip,town,country,countrycode,"
+				+ "nextvisitdate,msisdn,status from luck_now.userprofile where profileid=?";
 		Map<String,Object> l=new HashMap<>();
 		UserDetailBean returnedUser=(UserDetailBean)jdbcTemplate.execute(query,new PreparedStatementCallback<UserDetailBean>(){  
 		    @Override  
 		    public UserDetailBean doInPreparedStatement(PreparedStatement ps)  
 		            throws SQLException, DataAccessException { 
-						ps.setString(0, profileID);
+						ps.setString(1, profileID);
 					ResultSet r=	ps.executeQuery();
 					final Map<String, String> usermap=new HashMap<String, String>();
 					UserDetailBean ubean=new UserDetailBean();
@@ -52,7 +53,7 @@ private JdbcTemplate jdbcTemplate=null;
 						ubean.setProfileID(profileID);
 						ubean.setLastVisit(r.getDate("lvisitdate"));
 						ubean.setAddress(r.getString("town")+","+r.getString("state")+","+r.getString("country")+","+r.getInt("countrycode"));
-						ubean.setMonumber(r.getInt("msisdn"));
+						ubean.setMonumber(r.getLong("msisdn"));
 						ubean.setNextvisitDate(r.getDate("nextvisitdate"));
 						ubean.setStatus(r.getString("status"));
 
