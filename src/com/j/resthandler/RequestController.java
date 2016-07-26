@@ -23,9 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.j.beans.LoginBean;
 import com.j.dao.LoginDao;
 import com.j.dao.UserDetailDao;
+import com.j.dao.VisitRecordsDao;
 import com.j.daoImplement.LoginDaoImplement;
 import com.j.daoImplement.UserDetailDaoImplement;
 import com.j.daoImplement.UserFeedBeanImplement;
+import com.j.daoImplement.VisitRecordsDaoImplement;
 @CrossOrigin(origins = "*",maxAge = 3600)
 @RestController
 public class RequestController {
@@ -57,9 +59,9 @@ public class RequestController {
 	@ResponseBody
 	public List<Map<String,Object>> userFunction(@ModelAttribute("start")String startpoint,@ModelAttribute("end")String endpoint )
 	{
-		List<Map<String,Object>> l=new UserFeedBeanImplement(source).getActiveFeed();
+		List<Map<String,Object>> rFeed=new UserFeedBeanImplement(source).getActiveFeed();
 		
-		return l;
+		return rFeed;
 	}
 	
 	@RequestMapping(value="/userDetail",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
@@ -68,30 +70,18 @@ public class RequestController {
 	{
 		
 		UserDetailDao user=new UserDetailDaoImplement(source);
-		
 	
 	return user.getUserDetail(profileID);
 	}
 	
 	@RequestMapping(value="/appointmenthistory",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<Map<String,String>> userAppmtsFunction()
+	public List<Map<String,String>> userAppmtsFunction(@ModelAttribute("profileID")String profileID)
 	{
 		Map<String,String> mockprofile=new HashMap<>();
 		List<Map<String,String>> l=new ArrayList<>();
-		for(int i=1;i<20;i++)
-		{
-			System.out.println("----"+i);
-			mockprofile.put("id", String.valueOf(i));
-			mockprofile.put("name","Vegnesh Murti");
-			mockprofile.put("age","24");
-			mockprofile.put("imgurl","https://placehold.it/32x32");
-			mockprofile.put("profileID","04f8996da763b7a969b1028ee3007569eaf3a635486==");
-			l.add(mockprofile);
-		}
-		
-		System.out.println(l);
-		return l;
+		VisitRecordsDao vRecords=new VisitRecordsDaoImplement(source);
+		return vRecords.getRecords(profileID);
 	}
 	
 	@RequestMapping(value="*",method={RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.TRACE,RequestMethod.DELETE,RequestMethod.HEAD,RequestMethod.OPTIONS,RequestMethod.PATCH},produces=MediaType.APPLICATION_JSON_VALUE)

@@ -31,25 +31,8 @@ private JdbcTemplate jdbcTemplate=null;
 	public List<Map<String, String>> getRecords(final String profileID) {
 		String query="select appdate,attachement,notes where profileid='?'";
 		Map<String,Object> l=new HashMap<>();
-		VisitRecordsBean returnedUser=(VisitRecordsBean)jdbcTemplate.execute(query,new PreparedStatementCallback<VisitRecordsBean>(){  
-		    @Override  
-		    public VisitRecordsBean doInPreparedStatement(PreparedStatement ps)  
-		            throws SQLException, DataAccessException { 
-						ps.setString(0, profileID);
-					ResultSet r=	ps.executeQuery();
-					final Map<String, String> usermap=new HashMap<String, String>();
-					VisitRecordsBean vbean=new VisitRecordsBean();
-					if(r.next())
-					{
-						vbean.setAttenddate(r.getDate("appdate"));
-						vbean.setReportsLink(r.getString("attachment"));
-						vbean.setReportsNote(r.getString("notes"));
-
-					}
-					return vbean;
-			}
-			});
-		l.put("user", returnedUser);
+		List<Map<String,Object>> returnedUser=jdbcTemplate.queryForList(query,new Object[]{profileID});
+//		l.put("user", returnedUser);
 		return null;
 	}
 
