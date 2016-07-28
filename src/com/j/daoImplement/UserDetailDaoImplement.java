@@ -34,7 +34,7 @@ private JdbcTemplate jdbcTemplate=null;
 
 		String query="select imgUrl,firstname,lastname,age,lvisitdate,state,city,zip,lastname,age,"
 				+ "lvisitdate,state,city,zip,town,country,countrycode,"
-				+ "nextvisitdate,msisdn,status from luck_now.userprofile where profileid=?";
+				+ "nextvisitdate,msisdn,status from web_j_db.userprofile where profileid=?";
 		Map<String,Object> l=new HashMap<>();
 		UserDetailBean returnedUser=(UserDetailBean)jdbcTemplate.execute(query,new PreparedStatementCallback<UserDetailBean>(){  
 		    @Override  
