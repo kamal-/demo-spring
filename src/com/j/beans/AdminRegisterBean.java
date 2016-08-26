@@ -1,9 +1,24 @@
 package com.j.beans;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 public class AdminRegisterBean {
+	@Pattern(regexp="")
+	@Size(min=7,max=100)
+	@NotNull
 	private String email;
+	@Size(min=5,max=100)
+	@NotNull
 	private String username;
+	@Pattern(regexp="")
+	@Size(min=7,max=100)
+	@NotNull
 	private char[] password;
+	@Pattern(regexp="")
+	@Size(min=7,max=100)
+	@NotNull
 	private String imgUrl;
 	public String getEmail() {
 		return email;
