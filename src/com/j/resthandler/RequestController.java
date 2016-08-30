@@ -15,12 +15,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.j.beans.LoginBean;
+import com.j.beans.Paginate;
 import com.j.dao.LoginDao;
 import com.j.dao.UserDetailDao;
 import com.j.dao.VisitRecordsDao;
@@ -58,6 +60,16 @@ public class RequestController {
 	@RequestMapping(value="/patientFeed",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<Map<String,Object>> userFunction(@ModelAttribute("start")String startpoint,@ModelAttribute("end")String endpoint )
+	{
+		List<Map<String,Object>> rFeed=new UserFeedBeanImplement(source).getActiveFeed();
+		
+		return rFeed;
+	}
+	
+	@RequestMapping(value="/requestFeed",method=RequestMethod.POST,consumes="application/json"
+			,produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<Map<String,Object>> userReqFunction(@RequestBody Paginate startpoint)
 	{
 		List<Map<String,Object>> rFeed=new UserFeedBeanImplement(source).getActiveFeed();
 		
