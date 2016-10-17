@@ -9,7 +9,6 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -23,24 +22,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.j.beans.LoginBean;
 import com.j.beans.Paginate;
-import com.j.dao.LoginDao;
 import com.j.dao.UserDetailDao;
 import com.j.dao.VisitRecordsDao;
-import com.j.daoImplement.LoginDaoImplement;
 import com.j.daoImplement.UserDetailDaoImplement;
 import com.j.daoImplement.UserFeedBeanImplement;
 import com.j.daoImplement.VisitRecordsDaoImplement;
+import com.j.service.LoginService;
 @CrossOrigin(origins = "*",maxAge = 3600)
 @RestController
 public class RequestController {
 
+	
 	@Autowired
-	private DataSource source=null;
-	@RequestMapping(value="/login",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
+	private LoginService loginService;
+	@Autowired
+	private DataSource source;
+	@RequestMapping(value="/login",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Map<String,String> loginFunction(@ModelAttribute("login")LoginBean _login )
 	{
-		new LoginDaoImplement(source).isValidUser(_login);
+		_login=loginService.isValidUser(_login);
 		Map<String,String> mockprofile=new HashMap<>();
 		if(_login.getRole()!=null && _login.getRole().equalsIgnoreCase("admin"))
 			mockprofile.put("role", "admin");
@@ -96,7 +97,7 @@ public class RequestController {
 		return vRecords.getRecords(profileID);
 	}
 	
-	@RequestMapping(value="*",method={RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.TRACE,RequestMethod.DELETE,RequestMethod.HEAD,RequestMethod.OPTIONS,RequestMethod.PATCH},produces=MediaType.APPLICATION_JSON_VALUE)
+	/*@RequestMapping(value="*",method={RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.TRACE,RequestMethod.DELETE,RequestMethod.HEAD,RequestMethod.OPTIONS,RequestMethod.PATCH},produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Map<Integer,String> homeFunction()
 	{
@@ -106,8 +107,9 @@ public class RequestController {
 		Map<Integer,String> d=new HashMap<>();
 		d.put(1,"Hello world");
         return d;
-	}
-	@RequestMapping(value="*/*",method={RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.TRACE,RequestMethod.DELETE,RequestMethod.HEAD,RequestMethod.OPTIONS,RequestMethod.PATCH},produces=MediaType.APPLICATION_JSON_VALUE)
+	}*/
+	
+	@RequestMapping(value="/*",method={RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.TRACE,RequestMethod.DELETE,RequestMethod.HEAD,RequestMethod.OPTIONS,RequestMethod.PATCH},produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public String redirectFunction()
 	{

@@ -13,7 +13,7 @@ import com.j.beans.LoginBean;
 import com.j.dao.LoginDao;
 
 @Repository
-public class LoginDaoImplement  implements LoginDao{
+public class LoginDaoImplement2  implements LoginDao{
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -23,7 +23,7 @@ public class LoginDaoImplement  implements LoginDao{
 	public LoginBean isValidUser(LoginBean lbean) {
 		
 		boolean i=false;
-		System.out.println(new String(lbean.getPassword())+"--gfdgdrg--------------"+lbean.getUsername());
+		System.out.println(new String(lbean.getPassword())+"------vbnvvnvn---------"+lbean.getUsername());
 		String query="select * from web_j_db.account where username='"+lbean.getUsername()+"' and password=sha2('"+new String(lbean.getPassword())+"',256)";
 		LoginBean returnedUser=(LoginBean)jdbcTemplate.query(query,new ResultSetExtractor<LoginBean>() {
 			@Override
