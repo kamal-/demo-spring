@@ -8,10 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
+import javax.validation.Valid;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,19 +41,29 @@ public class RequestController {
 	private DataSource source;
 	@RequestMapping(value="/login",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public Map<String,String> loginFunction(@ModelAttribute("login")LoginBean _login )
+	public Map<String,String> loginFunction(@Valid @RequestBody LoginBean _login , BindingResult bindingResults)
 	{
-		_login=loginService.isValidUser(_login);
 		Map<String,String> mockprofile=new HashMap<>();
-		if(_login.getRole()!=null && _login.getRole().equalsIgnoreCase("admin"))
-			mockprofile.put("role", "admin");
-		else if(_login.getRole()!=null && _login.getRole().equalsIgnoreCase("user"))
-			mockprofile.put("role", "user");
-		else
+		if(bindingResults.hasErrors())
 		{
-			mockprofile.put("role", "unauthorized");
-			return mockprofile;
+			System.out.println("Error:"+bindingResults.getAllErrors());
+		}else{
+			_login=loginService.isValidUser(_login);
+			if(_login.getRole()!=null && _login.getRole().equalsIgnoreCase("admin"))
+				mockprofile.put("role", "admin");
+			else if(_login.getRole()!=null && _login.getRole().equalsIgnoreCase("user"))
+				mockprofile.put("role", "user");
+			else
+			{
+				mockprofile.put("role", "unauthorized");
+				return mockprofile;
+			}
+			mockprofile.put("profileID", "04f8996da763b7a969b1028ee3007569eaf3a635486");
+			mockprofile.put("token", "04f8996da763b7a969b1028ee3007569eaf3a635486--");
+			mockprofile.put("referesher", "04f8996da763b7a969b1028ee3007569eaf3a635486==");
+			return mockprofile;	
 		}
+		
 		mockprofile.put("profileID", "04f8996da763b7a969b1028ee3007569eaf3a635486");
 		mockprofile.put("token", "04f8996da763b7a969b1028ee3007569eaf3a635486--");
 		mockprofile.put("referesher", "04f8996da763b7a969b1028ee3007569eaf3a635486==");
