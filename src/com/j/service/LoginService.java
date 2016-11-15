@@ -21,5 +21,5 @@ public class LoginService {
 		
 		return loginDaoImplement2.isValidUser(_login);
 	}
-
+     
 }
