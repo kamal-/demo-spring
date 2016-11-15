@@ -20,13 +20,10 @@ import com.j.beans.VisitRecordsBean;
 import com.j.dao.VisitRecordsDao;
 
 public class VisitRecordsDaoImplement extends JdbcDaoSupport implements VisitRecordsDao {
-
-private JdbcTemplate jdbcTemplate=null;
 	@Autowired
-	public VisitRecordsDaoImplement(DataSource source)
-	{
-		 jdbcTemplate = new JdbcTemplate(source);
-	}
+private JdbcTemplate jdbcTemplate;
+
+	
 	@Override
 	public List<Map<String, Object>> getRecords(final String profileID) {
 		String query="select appdate,attachement,notes from web_j_db.userappointdetail where profileid=?";

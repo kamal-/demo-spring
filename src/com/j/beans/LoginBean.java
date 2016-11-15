@@ -1,7 +1,13 @@
 package com.j.beans;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Size;
+
 public class LoginBean {
 
+	@NotNull
+	@Size(min=5,max=250,message="Please enter required format.")
 	private String username;
 	private char[] password;
 	private String role;

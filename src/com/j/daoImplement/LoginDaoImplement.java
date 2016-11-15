@@ -1,40 +1,29 @@
 package com.j.daoImplement;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-
-import javax.annotation.PostConstruct;
-import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.stereotype.Repository;
 
 import com.j.beans.LoginBean;
-import com.j.common.ConnectionFactory;
-import com.j.common.DaoService;
 import com.j.dao.LoginDao;
 
-public class LoginDaoImplement extends JdbcDaoSupport implements LoginDao{
+@Repository
+public class LoginDaoImplement  implements LoginDao{
 
-	private JdbcTemplate jdbcTemplate=null;
-	
 	@Autowired
-	public LoginDaoImplement(DataSource source)
-	{
-		 jdbcTemplate = new JdbcTemplate(source);
-	}
+	private JdbcTemplate jdbcTemplate;
+	
+	
 	@Override
 	public LoginBean isValidUser(LoginBean lbean) {
 		
 		boolean i=false;
-		System.out.println(new String(lbean.getPassword())+"----------------"+lbean.getUsername());
+		System.out.println(new String(lbean.getPassword())+"--gfdgdrg--------------"+lbean.getUsername());
 		String query="select * from web_j_db.account where username='"+lbean.getUsername()+"' and password=sha2('"+new String(lbean.getPassword())+"',256)";
 		LoginBean returnedUser=(LoginBean)jdbcTemplate.query(query,new ResultSetExtractor<LoginBean>() {
 			@Override

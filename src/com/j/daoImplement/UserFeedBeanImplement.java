@@ -20,14 +20,11 @@ import com.j.beans.LoginBean;
 import com.j.beans.UserFeedBean;
 import com.j.dao.UserFeedDao;
 
-public class UserFeedBeanImplement extends JdbcDaoSupport implements UserFeedDao{
-private JdbcTemplate jdbcTemplate=null;
+public class UserFeedBeanImplement implements UserFeedDao{
 	
 	@Autowired
-	public UserFeedBeanImplement(DataSource source)
-	{
-		 jdbcTemplate = new JdbcTemplate(source);
-	}
+	private JdbcTemplate jdbcTemplate;
+	
 	
 	@Override
 	public List<Map<String, Object>> getActiveFeed() {
