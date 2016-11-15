@@ -30,6 +30,10 @@ import com.j.daoImplement.UserDetailDaoImplement;
 import com.j.daoImplement.UserFeedBeanImplement;
 import com.j.daoImplement.VisitRecordsDaoImplement;
 import com.j.service.LoginService;
+import com.j.service.UserDetailService;
+import com.j.service.UserFeedBeanService;
+import com.j.service.UserRegistrationService;
+import com.j.service.VisitRecordsService;
 @CrossOrigin(origins = "*",maxAge = 3600)
 @RestController
 public class RequestController {
@@ -38,8 +42,16 @@ public class RequestController {
 	@Autowired
 	private LoginService loginService;
 	@Autowired
+	private UserDetailService userDetailService;
+	@Autowired
 	private DataSource source;
-	@RequestMapping(value="/login",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@Autowired
+	private UserFeedBeanService userFeedBeanService;
+	@Autowired
+	private UserRegistrationService userRegistrationService;
+	@Autowired
+	private VisitRecordsService visitRecordsService;
+	@RequestMapping(value="/login",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Map<String,String> loginFunction(@Valid @RequestBody LoginBean _login , BindingResult bindingResults)
 	{
@@ -74,7 +86,7 @@ public class RequestController {
 	@ResponseBody
 	public List<Map<String,Object>> userFunction(@ModelAttribute("start")String startpoint,@ModelAttribute("end")String endpoint )
 	{
-		List<Map<String,Object>> rFeed=new UserFeedBeanImplement(source).getActiveFeed();
+		List<Map<String,Object>> rFeed=userFeedBeanService.getActiveFeed();
 		
 		return rFeed;
 	}
@@ -84,7 +96,7 @@ public class RequestController {
 	@ResponseBody
 	public List<Map<String,Object>> userReqFunction(@RequestBody Paginate startpoint)
 	{
-		List<Map<String,Object>> rFeed=new UserFeedBeanImplement(source).getActiveFeed();
+		List<Map<String,Object>> rFeed=userFeedBeanService.getActiveFeed();
 		
 		return rFeed;
 	}
@@ -93,10 +105,7 @@ public class RequestController {
 	@ResponseBody
 	public Map<String,Object> userDetailFunction(@ModelAttribute("profileID")String profileID )
 	{
-		
-		UserDetailDao user=new UserDetailDaoImplement(source);
-	
-	return user.getUserDetail(profileID);
+	return userDetailService.getUserDetail(profileID);
 	}
 	
 	@RequestMapping(value="/appointmenthistory",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
@@ -104,12 +113,11 @@ public class RequestController {
 	public List<Map<String,Object>> userAppmtsFunction(@ModelAttribute("profileID")String profileID)
 	{
 		Map<String,Object> mockprofile=new HashMap<>();
-		List<Map<String,String>> l=new ArrayList<>();
-		VisitRecordsDao vRecords=new VisitRecordsDaoImplement(source);
-		return vRecords.getRecords(profileID);
+		List<Map<String,String>> l=new ArrayList<>();		
+		return visitRecordsService.getRecords(profileID);
 	}
 	
-	/*@RequestMapping(value="*",method={RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.TRACE,RequestMethod.DELETE,RequestMethod.HEAD,RequestMethod.OPTIONS,RequestMethod.PATCH},produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="*",method={RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.TRACE,RequestMethod.DELETE,RequestMethod.HEAD,RequestMethod.OPTIONS,RequestMethod.PATCH},produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Map<Integer,String> homeFunction()
 	{
@@ -119,9 +127,9 @@ public class RequestController {
 		Map<Integer,String> d=new HashMap<>();
 		d.put(1,"Hello world");
         return d;
-	}*/
+	}
 	
-	@RequestMapping(value="/*",method={RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.TRACE,RequestMethod.DELETE,RequestMethod.HEAD,RequestMethod.OPTIONS,RequestMethod.PATCH},produces=MediaType.APPLICATION_JSON_VALUE)
+	/*@RequestMapping(value="/*",method={RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.TRACE,RequestMethod.DELETE,RequestMethod.HEAD,RequestMethod.OPTIONS,RequestMethod.PATCH},produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public String redirectFunction()
 	{
@@ -129,6 +137,6 @@ public class RequestController {
 		s.add("A");s.add("A");s.add("A");s.add("A");s.add("A");s.add("A");
 		return "Welcome user";
 	}
-	
+	*/
 	
 }
