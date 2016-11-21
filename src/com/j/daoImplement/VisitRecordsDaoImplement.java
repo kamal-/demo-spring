@@ -14,14 +14,16 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.stereotype.Repository;
 
 import com.j.beans.UserDetailBean;
 import com.j.beans.VisitRecordsBean;
 import com.j.dao.VisitRecordsDao;
 
-public class VisitRecordsDaoImplement extends JdbcDaoSupport implements VisitRecordsDao {
+@Repository
+public class VisitRecordsDaoImplement implements VisitRecordsDao {
 	@Autowired
-private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 
 	
 	@Override

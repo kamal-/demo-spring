@@ -15,11 +15,13 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.stereotype.Repository;
 
 import com.j.beans.LoginBean;
 import com.j.beans.UserFeedBean;
 import com.j.dao.UserFeedDao;
 
+@Repository
 public class UserFeedBeanImplement implements UserFeedDao{
 	
 	@Autowired

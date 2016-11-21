@@ -57,4 +57,18 @@ private JdbcTemplate jdbcTemplate;
 		return l;
 	}
 
+	@Override
+	public boolean updateUserDetails(UserDetailBean userDetailBean) {
+		int status =jdbcTemplate.update("insert into web_j_db.userprofile(firstname,lastname,age,sex,profileid,lvisitdate,state,city,country,countrycode,msisdn,statecode,town,nextvisitdate,status,imgUrl,zip)", new Object[]{
+	userDetailBean.getName(),userDetailBean.getSurName(),userDetailBean.getAge(),userDetailBean.getSex(),
+	userDetailBean.getProfileID(),userDetailBean.getLastVisit(),userDetailBean.getState(),userDetailBean.getCity(),userDetailBean.getCountry(),
+	userDetailBean.getCountrycode(),userDetailBean.getMonumber(),userDetailBean.getStatecode(),
+	userDetailBean.getTown(),userDetailBean.getNextvisitDate(),userDetailBean.getStatus(),userDetailBean.getImgUrl(),userDetailBean.getZip()	
+			
+		});
+		if(status>0)
+		return true;
+		return false;
+	}
+
 }

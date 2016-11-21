@@ -9,6 +9,7 @@ public class UserDetailBean {
 	private String imgUrl;
 	private String name;
 	private String surName;
+	private String sex;
 	private String profileID;
 	private String state;
 	private String city;
@@ -20,8 +21,22 @@ public class UserDetailBean {
 	private long monumber;
 	private Date nextvisitDate;
 	private String status;
+	private String town;
+	private int zip;
+	public int getZip() {
+		return zip;
+	}
+	public void setZip(int zip) {
+		this.zip = zip;
+	}
 	public Date getNextvisitDate() {
 		return nextvisitDate;
+	}
+	public String getTown() {
+		return town;
+	}
+	public void setTown(String town) {
+		this.town = town;
 	}
 	public void setNextvisitDate(Date nextvisitDate) {
 		this.nextvisitDate = nextvisitDate;
@@ -141,6 +156,12 @@ public class UserDetailBean {
 	}
 	public void setVisitRecords(List<ArrayList<VisitRecordsBean>> visitRecords) {
 		this.visitRecords = visitRecords;
+	}
+	public String getSex() {
+		return sex;
+	}
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 	private String future1;
 	private Date lastVisit;

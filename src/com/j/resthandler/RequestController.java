@@ -24,11 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.j.beans.LoginBean;
 import com.j.beans.Paginate;
-import com.j.dao.UserDetailDao;
-import com.j.dao.VisitRecordsDao;
-import com.j.daoImplement.UserDetailDaoImplement;
-import com.j.daoImplement.UserFeedBeanImplement;
-import com.j.daoImplement.VisitRecordsDaoImplement;
+import com.j.beans.UserDetailBean;
 import com.j.service.LoginService;
 import com.j.service.UserDetailService;
 import com.j.service.UserFeedBeanService;
@@ -106,6 +102,13 @@ public class RequestController {
 	public Map<String,Object> userDetailFunction(@ModelAttribute("profileID")String profileID )
 	{
 	return userDetailService.getUserDetail(profileID);
+	}
+	
+	@RequestMapping(value="/postUserDetail",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public boolean collectDetailFunction(@ModelAttribute("profileID")String profileID,@RequestBody UserDetailBean userDetailBean )
+	{
+	return userDetailService.updateUserDetails(userDetailBean);
 	}
 	
 	@RequestMapping(value="/appointmenthistory",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)

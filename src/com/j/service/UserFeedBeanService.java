@@ -13,11 +13,11 @@ import com.j.dao.UserFeedDao;
 public class UserFeedBeanService {
 
 	@Autowired
-	private UserFeedDao userFeedBeanDaoImplement;
+	private UserFeedDao userFeedDaoImplement;
 	public UserFeedBeanService() {
 		// TODO Auto-generated constructor stub
 	}
 	public List<Map<String, Object>> getActiveFeed() {
-		return userFeedBeanDaoImplement.getActiveFeed();
+		return userFeedDaoImplement.getActiveFeed();
 	}
 }
